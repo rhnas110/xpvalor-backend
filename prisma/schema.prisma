@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  username  String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @db.Timestamp(0)
+}
+
+model Transaction {
+  id           String   @id @default(cuid())
+  Point        Int
+  Amount       Int
+  Price        Int
+  Total        Int
+  RiotID       String   @db.VarChar(255)
+  imagePayment String?  @db.VarChar(255)
+  userId       String   @db.VarChar(255)
+  status       Int
+  createdAt    DateTime @default(now()) @db.Timestamp(0)
+  updatedAt    DateTime @default(now()) @db.Timestamp(0)
+}
+
+model TransactionStatus {
+  id     Int    @id @default(autoincrement())
+  status String @db.VarChar(35)
+}
